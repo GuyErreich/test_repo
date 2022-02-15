@@ -1,47 +1,16 @@
-## Trigo – DevOps Assignment
+### Insteructions:
+Each service is in his own directory just choose dir A or B and run python3 ./service.py.
 
-### General:
+I gave the possibility to give a port and address args to the service so it will be easier to create a script that creates a couple of instences for the same service.
+we can also just set up a couple of docker containers that we will expose them to different ports.
+than we can use nginx to make the url work with all the instances of the service or the with all the containers.
 
-* Clone the following repo: https://github.com/trigodevops/test_repo.git  
+now just use wget on the url and receive the configuration you want.
 
-* Work only on that repo (you got all the permissions that you need)  
-
-* Create a new branch and work on it (not directly on master/main) 
-
-* Please provide a descriptive readme file, so we know how to run your solution
-
-* Solution needs to have the ability to scale
-
-* The assignment is limited to 3 hours
-
-### Stage 1:  
-1. Deploy a multi env configuration solution anywhere you want with any tool that to want to use.
-
-2. There are 2 (different) services and 3 Links:
-
-    A. http(s)://`<ADDRESS>:<PORT>`/**prod**/service-a/config - will present production configuration of service a 
-
-    B. http(s)://`<ADDRESS>:<PORT>`/**prod**/service-b/config - will present production configuration of service b
-
-    C. http(s)://`<ADDRESS>:<PORT>`/**dev**/service-a/config  - will present dev configuration of service a
-
-3. Each service will have its own config with accordance to the environment
-4. Each service will respond with its config 
-5. Don't copy the config to the app - inject it  
-#### HINT:
-Config should be hieratical, e.g:
-```bash
-├── base_config
-│   ├── main_config
-└── environments
-    ├── dev
-    │   ├── some_dev_config
-    │   └── some_other_dev_config
-    ├── production
-        ├── some_prod_config
-        ├── some_other_prod_config
-```
 
 ### Stage 2:
-1. Write/describe a process for rolling an update of a new app version, and deploying it to dev and then to prod
-2. Write/describe a process for deployment of a configuration update (one of the values in the config file), which should trigger a restart of the app and result an update of the service response
+1. Once the feature has been merged in github it will activate the hook to jenkins and there it will start doing static analysis, unit tests and system test if all is done without failures than now we can create a docker image that contains all the needs for the service to run and deploy it to the local docker artifactory. After it is in the artifactory we can use it as pleased for dev and prod needs.
+
+2. We can make it possible through the api and we will need to think of a smart and safe way to authenticate so a random person wont be able to do it by him self.
+Same as befor we can just add a restart possibility in the api.
+Now if we use flask it knows to restart itself when ever he recognizes a change in the code so it makes it easy for us.
